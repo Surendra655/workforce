@@ -5,7 +5,6 @@
                 <div class="col-2-md">
                     <strong>Workforce</strong>
                 </div>
-
                 <div class="col-1">
                     <button  class="btn btn-primary btn-sm">Employees</button>
                 </div>
@@ -25,7 +24,7 @@
         </div>
         <div class="card-body" id='body'>
             <div class="row">
-                <div class="col-3" *ngFor='let employee of employeesData | paginate: { itemsPerPage: 8, currentPage: p };let i=index'>
+                <div class="col-3" *ngFor='let employee of employeesData | paginate: { itemsPerPage: 8, currentPage: page };let i=index'>
                     <div class="card"  (click)='viewEmp(i)' style="width: 11.5rem;">
                         <img [src]='employee?.avatar' class="card-img-top" alt="...">
                         <div class="custom-btn">
@@ -40,7 +39,7 @@
             <div class="col-8">
             </div>
             <div class="col-4">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
             </div>
         </div>
     </div>

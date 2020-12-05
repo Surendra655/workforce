@@ -14,11 +14,13 @@ export class EmployeeAddComponent implements OnInit {
   isUpdate = false;
   isImage: any = '/assets/imgicon.png';
   index: any;
+  submitted = false;
   constructor(private fb: FormBuilder,
               private employeeService: EmployeeService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private dataService: DataService) { }
+             
 
   ngOnInit() {
     this.createEmployeeForm();
@@ -32,42 +34,47 @@ export class EmployeeAddComponent implements OnInit {
       });
   }
 
-  getEmpById(empId) {
+  getEmpById(index) {
     // this.employeeService.getSingleUser(empId).subscribe(res => {
     //   this.employee = res.data || [];
-    //   this.isImage = res.data.avatar;
     // });
-    this.isImage = this.dataService.empData[empId].avatar;
-    this.employeeForm.patchValue(this.dataService.empData[empId]);
+    if (this.dataService.empData[index].avatar) {
+      this.isImage = this.dataService.empData[index].avatar;
+    }
+    this.employeeForm.patchValue(this.dataService.empData[index]);
   }
 
   createEmployeeForm() {
     this.employeeForm = this.fb.group({
       avatar: [''],
-      email: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
       first_name: [null, [Validators.required]],
       id: [null],
       last_name: [null, [Validators.required]],
     });
   }
 
+  get f() { return this.employeeForm.controls; }
+
   saveNewEmp() {
+    this.submitted=true;
     const payload = this.employeeForm.value;
     payload.avatar = this.isImage;
     payload.id = this.dataService.empData.length + 1;
-    if (this.employeeForm.value.Valid || true) {
-      this.dataService.empData.push(this.employeeForm.value);
+    if (this.employeeForm.valid) {
+      this.dataService.empData.push(payload);
       this.router.navigate(['/list']);
     }
   }
 
   updateEmployee() {
     const payload = this.employeeForm.value;
-    if (this.employeeForm.value.Valid || true) {
+    if (this.employeeForm.valid) {
       this.dataService.empData[this.index] = payload;
       this.router.navigate(['/list']);
     }
   }
+
   removeEmployee() {
     this.dataService.empData.splice(this.index, 1);
     this.router.navigate(['/list']);

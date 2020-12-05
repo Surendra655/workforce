@@ -9,14 +9,15 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-  employeesData: any;
+  employeesData=[];
+  page = 1;
 
   constructor(private employeeService: EmployeeService,
               private router: Router,
               private dataService: DataService) { }
+
   ngOnInit() {
     this.employeeService.getEmpList().subscribe(res => {
-      // this.employeesData= res.data || [];
       if (this.dataService.empData.length === 0) {
         this.dataService.empData = res.data || [];
       }
@@ -32,5 +33,4 @@ export class EmployeeListComponent implements OnInit {
     };
     this.router.navigate(['/add'], navigationExtras);
   }
-  p: number = 1;
 }
