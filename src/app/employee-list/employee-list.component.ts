@@ -32,4 +32,5 @@ export class EmployeeListComponent implements OnInit {
     };
     this.router.navigate(['/add'], navigationExtras);
   }
+  p: number = 1;
 }

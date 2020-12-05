@@ -14,20 +14,19 @@
                 </div>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-9">
+                &nbsp;
+            </div>
+            <div class="col-3">
+                <h5 style="color: rgb(68, 212, 212);">Total of <strong style="color: rgb(243, 207, 46);">{{employeesData.length}}</strong> employees</h5>
+            </div>
+        </div>
         <div class="card-body" id='body'>
             <div class="row">
-                <div class="col-10">
-                    &nbsp;
-                </div>
-                <div class="col-2">
-                    Total of 50 employees
-                </div>
-            </div>
-            <br>
-
-            <div class="row">
-                <div class="col-3" *ngFor='let employee of employeesData;let i=index'>
-                    <div class="card"  (click)='viewEmp(i)' style="width: 12rem;">
+                <div class="col-3" *ngFor='let employee of employeesData | paginate: { itemsPerPage: 8, currentPage: p };let i=index'>
+                    <div class="card"  (click)='viewEmp(i)' style="width: 11.5rem;">
                         <img [src]='employee?.avatar' class="card-img-top" alt="...">
                         <div class="custom-btn">
                             {{employee.first_name}} {{employee.last_name}}
@@ -35,6 +34,13 @@
                     </div>
                     <br>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+            </div>
+            <div class="col-4">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>
         </div>
     </div>

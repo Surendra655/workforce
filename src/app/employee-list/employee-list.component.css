@@ -1,16 +1,17 @@
  .wrapper{
 	margin:20px;
 	/* padding:20px; */
-    /* border:20px; */
+    border:20px;
     
 }
 #header{
-    background-color: #eee;
-
+    background-color: rgba(238, 238, 238, 0.767);
 }
 
 #body {
-	padding: 30px;
+    padding: 12px;
+    /* margin:10px; */
+    /* border:50px; */
 }
 
 .custom-btn{
