@@ -1,1 +1,41 @@
-<button class="btn btn-link">test</button>
+<div class="wrapper">
+    <div class="card">
+        <div class="card-header" id="header">
+            <div class="row">
+                <div class="col-2-md">
+                    <strong>Workforce</strong>
+                </div>
+
+                <div class="col-1">
+                    <button  class="btn btn-primary btn-sm">Employees</button>
+                </div>
+                <div class="col-2">
+                    <button [routerLink]="['/add']"  class="btn btn-primary btn-sm inActive">Add Employee</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body" id='body'>
+            <div class="row">
+                <div class="col-10">
+                    &nbsp;
+                </div>
+                <div class="col-2">
+                    Total of 50 employees
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-3" *ngFor='let employee of employeesData;let i=index'>
+                    <div class="card"  (click)='viewEmp(i)' style="width: 12rem;">
+                        <img [src]='employee?.avatar' class="card-img-top" alt="...">
+                        <div class="custom-btn">
+                            {{employee.first_name}} {{employee.last_name}}
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
