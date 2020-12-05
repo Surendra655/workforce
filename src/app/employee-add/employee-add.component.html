@@ -15,9 +15,7 @@
                 </div> 
             </div>
         </div>
-        <!-- [ngClass]="{
-            'error': (submitted && f.jobTitle.errors) || checkValueValidity('jobTitle')
-          }"  -->
+
         <div class="card-body" id='body'>
             <div class="row" >
                     <div class="row">
@@ -29,7 +27,6 @@
                             <br>
                         </div>
                     </div>
-                <!-- </div> -->
                 <div class="col-8">
                     <form [formGroup]="employeeForm">
                         <div class="form-group row"  *ngIf='isUpdate'>

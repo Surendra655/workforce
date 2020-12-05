@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { EmployeeService } from '../services/employee.service';
+import swal from 'sweetalert2';
+
 @Component({
   selector: 'app-employee-add',
   templateUrl: './employee-add.component.html',
@@ -20,7 +22,7 @@ export class EmployeeAddComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private dataService: DataService) { }
-             
+
 
   ngOnInit() {
     this.createEmployeeForm();
@@ -57,27 +59,81 @@ export class EmployeeAddComponent implements OnInit {
   get f() { return this.employeeForm.controls; }
 
   saveNewEmp() {
-    this.submitted=true;
+    this.submitted = true;
     const payload = this.employeeForm.value;
     payload.avatar = this.isImage;
     payload.id = this.dataService.empData.length + 1;
     if (this.employeeForm.valid) {
-      this.dataService.empData.push(payload);
-      this.router.navigate(['/list']);
+      swal.fire({
+        title: 'Are You Sure ?',
+        text: 'Are You Want To Add New Employee !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Conform',
+        cancelButtonText: 'Cancel'
+      }).then(result => {
+        if (result.value) {
+          this.dataService.empData.push(payload);
+          swal.fire({
+            title: 'success',
+            text: 'Added Successfully !',
+            icon: 'success',
+            timer:1500,
+            showConfirmButton: false
+          });
+          this.router.navigate(['/list']);
+        }
+      });
     }
   }
 
   updateEmployee() {
     const payload = this.employeeForm.value;
     if (this.employeeForm.valid) {
-      this.dataService.empData[this.index] = payload;
-      this.router.navigate(['/list']);
+      swal.fire({
+        title: 'Are You Sure ?',
+        text: 'Are You Want To Update Employee Details !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Conform',
+        cancelButtonText: 'Cancel'
+      }).then(result => {
+        if (result.value) {
+          this.dataService.empData[this.index] = payload;
+          swal.fire({
+            title: 'success',
+            text: 'Updated Successfully !',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false
+          });
+          this.router.navigate(['/list']);
+        }
+      });
     }
   }
 
   removeEmployee() {
-    this.dataService.empData.splice(this.index, 1);
-    this.router.navigate(['/list']);
+    swal.fire({
+      title: 'Are You Sure ?',
+      text: 'Are You Want To Delete Employee !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Conform',
+      cancelButtonText: 'Cancel'
+    }).then(result => {
+      if (result.value) {
+        this.dataService.empData.splice(this.index, 1);
+        swal.fire({
+          title: 'success',
+          text: 'Deleted Successfully !',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        this.router.navigate(['/list']);
+      }
+    });
   }
 
   addEmp() {
